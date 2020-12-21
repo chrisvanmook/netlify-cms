@@ -1,0 +1,76 @@
+backend:
+  name: git-gateway
+  repo: chrisvanmook/netlify-cms
+  branch: master
+
+local_backend: true
+media_folder: static/img
+public_folder: /img
+
+collections:
+
+  - name: 'layers'
+    label: 'Kaartlagen'
+    folder: 'content/layers'
+    extension: 'json'
+    create: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'string' }
+  - name: 'theme'
+    label: 'Thema'
+    folder: 'content/themes'
+    extension: 'json'
+    create: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'string' }
+  - name: 'collection'
+    label: 'Collectie'
+    folder: 'content/collection'
+    create: true
+    extension: 'json'
+    media_folder: ''
+    public_folder: ''
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'string' }
+      - label: 'Kaartlagen'
+        name: "connectedLayers"
+        widget: "relation"
+        collection: "layers"
+        search_fields: [ "title" ]
+        value_field: "title"
+        display_fields: [ "title" ]
+      - label: "Themas"
+        name: "connectedThemes"
+        collapsed: false
+        create: true
+        allow_add: true
+        widget: "list"
+        fields:
+          - label: 'Theme'
+            name: "connectedTheme"
+            widget: "relation"
+            collection: "theme"
+            search_fields: [ "title" ]
+            value_field: "title"
+            display_fields: [ "title" ]
+      - label: "Lagen"
+        name: "layers"
+        collapsed: false
+        create: true
+        allow_add: true
+        widget: "list"
+        fields:
+          - label: 'Layers'
+            name: "layers"
+            widget: "relation"
+            collection: "layers"
+            search_fields: [ "title" ]
+            value_field: "title"
+            display_fields: [ "title" ]
+
+
